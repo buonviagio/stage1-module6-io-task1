@@ -10,7 +10,6 @@ public class FileReader {
     public static void main(String[] args) {
         FileReader fileReader = new FileReader();
         File file = new File("src/main/resources/Profile.txt");
-        System.out.println(fileReader.getDataFromFile(file));
     }
 
     public Profile getDataFromFile(File file) {
@@ -47,8 +46,6 @@ public class FileReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         return profile;
     }
 
@@ -63,12 +60,6 @@ public class FileReader {
             array[i][0] = str.substring(0, tmp);
             array[i][1]= arr[counter++];
         }
-        /*for (String [] s : array){
-            for (String g : s){
-                System.out.print(g);
-            }
-            System.out.println();
-        }*/
         return array;
     }
 }
