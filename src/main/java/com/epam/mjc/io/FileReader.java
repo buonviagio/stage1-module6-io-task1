@@ -2,7 +2,6 @@ package com.epam.mjc.io;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
@@ -10,51 +9,49 @@ public class FileReader {
 
     public Profile getDataFromFile(File file) {
         Profile profile = new Profile();
-        String resultData = "";
+        StringBuilder resultData = new StringBuilder();
         String line = "";
         try (BufferedReader fileReader = new BufferedReader(new java.io.FileReader(file))) {
-            while (line != null){
+            while (line != null) {
                 line = fileReader.readLine();
-                if(line != null) {
-                    resultData += line+ " ";
+                if (line != null) {
+                    resultData.append(line).append(" ");
                 }
             }
 
-            String [][] array = stringToMap(resultData.split(" "));
+            String[][] array = stringToMap(resultData.toString().split(" "));
 
-            for (int i = 0; i < array.length ; i++) {
-                if(array[i][0].equals("Name")){
+            for (int i = 0; i < array.length; i++) {
+                if (array[i][0].equals("Name")) {
                     profile.setName(array[i][1]);
                 }
-                if(array[i][0].equals("Age")){
+                if (array[i][0].equals("Age")) {
                     profile.setAge(Integer.parseInt(array[i][1]));
                 }
-                if(array[i][0].equals("Email")){
+                if (array[i][0].equals("Email")) {
                     profile.setEmail(array[i][1]);
                 }
-                if(array[i][0].equals("Phone")){
+                if (array[i][0].equals("Phone")) {
                     profile.setPhone(Long.parseLong(array[i][1]));
                 }
             }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return profile;
     }
 
-    public String [][] stringToMap (String [] arr){
-        String [][] array = new String[arr.length/2][2];
+    public String[][] stringToMap(String[] arr) {
+        String[][] array = new String[arr.length / 2][2];
         int counter = 0;
         String str;
         int tmp;
         for (int i = 0; i < array.length; i++) {
-            str= arr[counter++];
-            tmp= str.indexOf(":");
+            str = arr[counter++];
+            tmp = str.indexOf(":");
             array[i][0] = str.substring(0, tmp);
-            array[i][1]= arr[counter++];
+            array[i][1] = arr[counter++];
         }
         return array;
     }
